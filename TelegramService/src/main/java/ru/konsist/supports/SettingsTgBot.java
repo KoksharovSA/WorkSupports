@@ -4,8 +4,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 
 import java.util.Map;
 
-public class Settings {
-    private static Settings settingsApp;
+public class SettingsTgBot {
+    private static SettingsTgBot settingsTgBotApp;
 
     private String telegramBotName;
     private String telegramBotToken;
@@ -28,14 +28,14 @@ public class Settings {
         return telegramBotServicePort;
     }
 
-    public static Settings getInstance(){
-        if (settingsApp == null) {
-            settingsApp = new Settings();
+    public static SettingsTgBot getInstance(){
+        if (settingsTgBotApp == null) {
+            settingsTgBotApp = new SettingsTgBot();
         }
-        return settingsApp;
+        return settingsTgBotApp;
     }
 
-    private Settings() {
+    private SettingsTgBot() {
         try {
             Map<String, String> mapSettings = SettingsReader.readJSONFile(SettingsReader.readTextFile("Settings.json"));
             for (Map.Entry<String, String> entry : mapSettings.entrySet()) {
