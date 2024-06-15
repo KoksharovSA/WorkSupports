@@ -9,8 +9,6 @@ public class SettingsTgBot {
 
     private String telegramBotName;
     private String telegramBotToken;
-    private String telegramBotServiceIP;
-    private String telegramBotServicePort;
 
     public String getTelegramBotName() {
         return telegramBotName;
@@ -20,13 +18,6 @@ public class SettingsTgBot {
         return telegramBotToken;
     }
 
-    public String getTelegramBotServiceIP() {
-        return telegramBotServiceIP;
-    }
-
-    public String getTelegramBotServicePort() {
-        return telegramBotServicePort;
-    }
 
     public static SettingsTgBot getInstance(){
         if (settingsTgBotApp == null) {
@@ -45,12 +36,6 @@ public class SettingsTgBot {
                         break;
                     case ("telegramBotToken"):
                         telegramBotToken = entry.getValue();
-                        break;
-                    case ("telegramBotServiceIP"):
-                        telegramBotServiceIP = entry.getValue();
-                        break;
-                    case ("telegramBotServicePort"):
-                        telegramBotServicePort = entry.getValue();
                         break;
                     default:
                         break;
@@ -71,12 +56,6 @@ public class SettingsTgBot {
                         break;
                     case ("telegramBotToken"):
                         telegramBotToken = entry.getValue();
-                        break;
-                    case ("telegramBotServiceIP"):
-                        telegramBotServiceIP = entry.getValue();
-                        break;
-                    case ("telegramBotServicePort"):
-                        telegramBotServicePort = entry.getValue();
                         break;
                     default:
                         break;

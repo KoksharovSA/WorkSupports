@@ -1,5 +1,9 @@
 package ru.konsist.models;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.extensions.bots.commandbot.TelegramLongPollingCommandBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -7,12 +11,17 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import ru.konsist.supports.SettingsTgBot;
 import ru.konsist.supports.UtilsTgBot;
-import ru.konsist.supports.commandsTgBot.NonCommand;
-import ru.konsist.supports.commandsTgBot.StartCommand;
+import ru.konsist.supports.commandsTgBot.serviceCommand.HelpCommand;
+import ru.konsist.supports.commandsTgBot.serviceCommand.NonCommand;
+import ru.konsist.supports.commandsTgBot.serviceCommand.StartCommand;
 
+@Component
+@RequiredArgsConstructor
 public final class WorkSupportsTgBot extends TelegramLongPollingCommandBot {
-    private final String BOT_NAME;
-    private final String BOT_TOKEN;
+    @Autowired
+    private ApplicationContext context;
+    private String BOT_NAME;
+    private String BOT_TOKEN;
 
     @Override
     public String getBotUsername() {
@@ -24,12 +33,13 @@ public final class WorkSupportsTgBot extends TelegramLongPollingCommandBot {
         return BOT_TOKEN;
     }
 
-    public WorkSupportsTgBot() {
-        super();
+    public void tgBotUpdateSettings() {
         this.BOT_NAME = SettingsTgBot.getInstance().getTelegramBotName();
         this.BOT_TOKEN = SettingsTgBot.getInstance().getTelegramBotToken();
-
+    }
+    public void tgBotAddCommand() {
         register(new StartCommand("start", "Старт"));
+        register(new HelpCommand("help","Помощь"));
     }
 
     @Override

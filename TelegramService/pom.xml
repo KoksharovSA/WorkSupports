@@ -18,7 +18,6 @@
     <telegram.version>6.9.0</telegram.version>
 </properties>
 <dependencies>
-    <!-- Telegram API -->
     <dependency>
         <groupId>org.telegram</groupId>
         <artifactId>telegrambots</artifactId>
