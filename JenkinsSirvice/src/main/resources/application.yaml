@@ -1,0 +1,13 @@
+server:
+  port: 6666
+spring:
+  application:
+    name=JenkinsService
+  datasource:
+    url: jdbc:postgresql://localhost:5432/jenkins_service
+    username: serg
+    password: serg
+  jpa:
+    hibernate:
+      ddl-auto: update
+      show-sql: true
