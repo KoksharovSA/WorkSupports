@@ -11,9 +11,9 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import ru.konsist.supports.SettingsTgBot;
 import ru.konsist.supports.UtilsTgBot;
-import ru.konsist.supports.commandsTgBot.serviceCommand.HelpCommand;
-import ru.konsist.supports.commandsTgBot.serviceCommand.NonCommand;
-import ru.konsist.supports.commandsTgBot.serviceCommand.StartCommand;
+import ru.konsist.commandsTgBot.serviceCommand.HelpCommand;
+import ru.konsist.commandsTgBot.serviceCommand.NonCommand;
+import ru.konsist.commandsTgBot.serviceCommand.StartCommand;
 
 @Component
 @RequiredArgsConstructor

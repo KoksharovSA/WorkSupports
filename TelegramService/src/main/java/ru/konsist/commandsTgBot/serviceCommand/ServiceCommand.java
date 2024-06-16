@@ -1,4 +1,4 @@
-package ru.konsist.supports.commandsTgBot.serviceCommand;
+package ru.konsist.commandsTgBot.serviceCommand;
 
 import org.telegram.telegrambots.extensions.bots.commandbot.commands.BotCommand;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;

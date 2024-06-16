@@ -23,7 +23,7 @@ public class ControllerTgBot {
     }
 
     @GetMapping
-    @RequestMapping("/StopService")
+    @RequestMapping("/service/StopService")
     public String testStopService(@RequestBody Map request){
         serviceTgBot.telegramServiceApplicationStop();
         return "TelegramServiceApplication stopped";

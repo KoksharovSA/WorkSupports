@@ -1,4 +1,4 @@
-package ru.konsist.supports.commandsTgBot.serviceCommand;
+package ru.konsist.commandsTgBot.serviceCommand;
 
 import org.springframework.stereotype.Component;
 

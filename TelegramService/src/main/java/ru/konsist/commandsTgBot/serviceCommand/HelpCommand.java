@@ -1,4 +1,4 @@
-package ru.konsist.supports.commandsTgBot.serviceCommand;
+package ru.konsist.commandsTgBot.serviceCommand;
 
 import org.telegram.telegrambots.meta.api.objects.Chat;
 import org.telegram.telegrambots.meta.api.objects.User;
