@@ -6,7 +6,7 @@
   </component>
   <component name="DBNavigator.Project.DataEditorManager">
     <record-view-column-sorting-type value="BY_INDEX" />
-    <value-preview-text-wrapping value="true" />
+    <value-preview-text-wrapping value="false" />
     <value-preview-pinned value="false" />
   </component>
   <component name="DBNavigator.Project.DatabaseBrowserManager">
@@ -17,19 +17,24 @@
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="e1748c86-f53b-4e27-b8e8-7a3e3291eefb">
-      <console name="Connection" type="STANDARD" schema="jenkins_service" session="Main"><![CDATA[DROP SCHEMA if exists jenkins_service CASCADE;]]></console>
+      <console name="Connection" type="STANDARD" schema="jenkins_service" session="Main" />
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseEditorStateManager">
     <last-used-providers />
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files />
+    <open-files>
+      <object connection-id="e1748c86-f53b-4e27-b8e8-7a3e3291eefb" object-ref="schemas/public/tables/settings_users" />
+    </open-files>
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="e1748c86-f53b-4e27-b8e8-7a3e3291eefb" />
   </component>
   <component name="DBNavigator.Project.DatasetFilterManager">
+    <filter-actions connection-id="e1748c86-f53b-4e27-b8e8-7a3e3291eefb" dataset="public.settings_users" active-filter-id="9abf6fba-38a8-4768-95a3-b166e8dbcb98">
+      <filter id="9abf6fba-38a8-4768-95a3-b166e8dbcb98" name="Filter" temporary="false" custom-name="false" type="basic" join-type="AND" />
+    </filter-actions>
     <filter-actions connection-id="e1748c86-f53b-4e27-b8e8-7a3e3291eefb" dataset="public.request_jenkins_log" active-filter-id="" />
   </component>
   <component name="DBNavigator.Project.ExecutionManager">

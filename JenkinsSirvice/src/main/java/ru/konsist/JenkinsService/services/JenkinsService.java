@@ -5,10 +5,13 @@ import com.offbytwo.jenkins.model.Job;
 import com.offbytwo.jenkins.model.JobWithDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.konsist.JenkinsService.models.JobJenkins;
 
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -23,21 +26,15 @@ public class JenkinsService {
         }
     }
 
-    public Map<String, Job> getJenkinsJobs(JenkinsServer jenkinsServer) {
+    public List<JobJenkins> getJenkinsJobs(JenkinsServer jenkinsServer) {
         try {
-            return jenkinsServer.getJobs();
+            List<JobJenkins> jobJenkinsList = new ArrayList<>();
+            for (Map.Entry item: jenkinsServer.getJobs().entrySet()) {
+                jobJenkinsList.add((new JobJenkins().getJobDetails((Job)item.getValue())));
+            }
+            return jobJenkinsList;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
-
-    public JobWithDetails getJobDetails(String jobName, JenkinsServer jenkinsServer) {
-        try {
-            return getJenkinsJobs(jenkinsServer).get(jobName).details();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-
 }

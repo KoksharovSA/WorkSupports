@@ -21,8 +21,8 @@ public class SettingsUserService {
         return settingsUserRepository.findById(id);
     }
 
-    public List<SettingsUser> getSettingsUserByChatId(String chatId){
-        return getAllSettingsUser().stream().toList().stream().filter(x->x.getChatId() == chatId).toList();
+    public Optional<SettingsUser> getSettingsUserByChatId(String chatId){
+        return getAllSettingsUser().stream().toList().stream().filter(x->x.getChatId().equals(chatId)).findFirst();
     }
 
     public SettingsUser createSettingsUser(SettingsUser settingsUser){
