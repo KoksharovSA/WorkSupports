@@ -1,5 +1,6 @@
 package ru.konsist.services;
 
+import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -12,6 +13,7 @@ import ru.konsist.models.WorkSupportsTgBot;
 import java.util.Map;
 
 @Service
+@Log
 public class ServiceTgBot {
     @Autowired
     private ApplicationContext context;
@@ -25,11 +27,14 @@ public class ServiceTgBot {
             wsb.tgBotUpdateSettings();
             wsb.tgBotAddCommand();
             botsApi.registerBot(wsb);
+            log.info("Telegram bot started successfully");
         } catch (TelegramApiException e) {
+            log.info("Telegram Bot started ERROR");
             e.printStackTrace();
         }
     }
     public void telegramServiceApplicationStop(){
+        log.info("Telegram service application stopped");
         conContext.close();
     }
 }

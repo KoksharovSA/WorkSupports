@@ -15,32 +15,40 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/tasks")
+@RequestMapping("/")
 @AllArgsConstructor
 @Log
 public class RequestJenkinsController {
     private final SettingsUserService settingsUserService;
     private final JenkinsService jenkinsService;
 
-    @GetMapping("/{chatId}")
+    @GetMapping("/jobs/{chatId}")
     public List<JobJenkins> getAllJobs(@PathVariable Long chatId) {
+        log.info("GetRequest(\"/jobs/\"" + chatId + ")");
         List<JobJenkins> result = new ArrayList<>();
         try{
-//            SettingsUser settingsTemp = new SettingsUser();
-//            settingsTemp.setChatId("407040272");
-//            settingsTemp.setUserName("serg_alex");
-//            settingsTemp.setUri("http://localhost:8080/");
-//            settingsTemp.setLogin("serg");
-//            settingsTemp.setPassword("serg");
-//            settingsUserService.createSettingsUser(settingsTemp);
             SettingsUser settingsUser = settingsUserService.getSettingsUserByChatId(chatId.toString()).get();
-
             result = jenkinsService.getJenkinsJobs(
                     jenkinsService.getJenkinsServer(
                             settingsUser.getUri(),
                             settingsUser.getLogin(),
                             settingsUser.getPassword()));
         } catch (Exception ex){
+            log.info("ERROR getAllJobs");
+            System.out.println(ex);
+        }
+        return result;
+    }
+
+    @GetMapping("/settings/{chatId}")
+    public SettingsUser getSettingsUser(@PathVariable Long chatId) {
+        log.info("GetRequest(\"/settings/\"" + chatId + ")");
+        SettingsUser result = new SettingsUser();
+        try{
+            SettingsUser settingsUser = settingsUserService.getSettingsUserByChatId(chatId.toString()).get();
+            result = settingsUser;
+        } catch (Exception ex){
+            log.info("ERROR getSettingsUser");
             System.out.println(ex);
         }
         return result;

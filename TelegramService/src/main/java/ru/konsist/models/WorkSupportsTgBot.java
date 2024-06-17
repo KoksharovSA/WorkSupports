@@ -9,6 +9,8 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import ru.konsist.commandsTgBot.workCommand.GetAllJobsCommand;
+import ru.konsist.commandsTgBot.workCommand.GetSettingsCommand;
 import ru.konsist.supports.SettingsTgBot;
 import ru.konsist.supports.UtilsTgBot;
 import ru.konsist.commandsTgBot.serviceCommand.HelpCommand;
@@ -40,6 +42,8 @@ public final class WorkSupportsTgBot extends TelegramLongPollingCommandBot {
     public void tgBotAddCommand() {
         register(new StartCommand("start", "Старт"));
         register(new HelpCommand("help","Помощь"));
+        register(new GetAllJobsCommand("jobs","Получить все задачи"));
+        register(new GetSettingsCommand("settings","Получить настройки"));
     }
 
     @Override
