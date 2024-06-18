@@ -21,12 +21,12 @@ public class SettingsUser {
 
     @Override
     public String toString() {
-        return "userName='" + userName + '\'' +
-                "\nchatId='" + chatId + '\'' +
-                "\nuri='" + uri + '\'' +
-                "\nlogin='" + login + '\'' +
-                "\npassword='" + password + '\'' +
-                "\ndateCreate='" + dateCreate + '\'' +
-                "\ndateUpdate='" + dateUpdate + '\'';
+        return "User name: " + userName +
+                "\nChat Id: " + chatId +
+                "\nUri: " + uri +
+                "\nLogin: " + login +
+                "\nPassword: " + password +
+                "\nCreate date: " + dateCreate +
+                "\nUpdate date: " + dateUpdate;
     }
 }

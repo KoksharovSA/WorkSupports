@@ -1,8 +1,8 @@
 package ru.konsist.commandsTgBot.workCommand;
 
-import lombok.extern.java.Log;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.telegram.telegrambots.meta.api.objects.Chat;
 import org.telegram.telegrambots.meta.api.objects.User;
@@ -18,9 +18,10 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 @Log
-public class GetAllJobsCommand extends WorkCommand {
-    private JobService jobService = new JobService();
-    public GetAllJobsCommand(String identifier, String description) {
+public class GetJobCommand extends WorkCommand {
+    @Autowired
+    private JobService jobService;
+    public GetJobCommand(String identifier, String description) {
         super(identifier, description);
     }
 

@@ -3,6 +3,7 @@ package ru.konsist.JenkinsService.services;
 import com.offbytwo.jenkins.JenkinsServer;
 import com.offbytwo.jenkins.model.Job;
 import com.offbytwo.jenkins.model.JobWithDetails;
+import com.offbytwo.jenkins.model.QueueReference;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.konsist.JenkinsService.models.JobJenkins;
@@ -13,6 +14,7 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -33,6 +35,21 @@ public class JenkinsService {
                 jobJenkinsList.add((new JobJenkins().getJobDetails((Job)item.getValue())));
             }
             return jobJenkinsList;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public JobJenkins getJenkinsJobByName(JenkinsServer jenkinsServer, String nameJob) {
+        try {
+            return new JobJenkins().getJobDetails(jenkinsServer.getJobs().get(nameJob));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public QueueReference buildJenkinsJobByName(JenkinsServer jenkinsServer, String nameJob) {
+        try {
+
+            return jenkinsServer.getJob(nameJob).build();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

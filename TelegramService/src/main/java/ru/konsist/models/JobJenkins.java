@@ -17,12 +17,12 @@ public class JobJenkins {
 
     @Override
     public String toString() {
-        return  "name='" + name + '\'' +
-                "\ndisplayName='" + displayName + '\'' +
-                "\ndateJob='" + dateJob + '\'' +
-                "\ndescription='" + description + '\'' +
-                "\nresultLastBuild='" + resultLastBuild + '\'' +
-                "\nlastBuildTextConsole='" + lastBuildTextConsole + '\'';
+        return  "Name: " + name +
+                "\nDisplay name: " + displayName +
+                "\nDescription: " + description +
+                "\nDate last execute job: " + dateJob +
+                "\nResult last execute: " + resultLastBuild +
+                "\nLast execute text console: " + lastBuildTextConsole;
     }
 
     public String toJSON() {

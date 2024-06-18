@@ -1,4 +1,4 @@
-package ru.konsist.models;
+package ru.konsist.commandsTgBot;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,17 +11,22 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import ru.konsist.commandsTgBot.workCommand.GetAllJobsCommand;
 import ru.konsist.commandsTgBot.workCommand.GetSettingsCommand;
+import ru.konsist.services.JobService;
 import ru.konsist.supports.SettingsTgBot;
 import ru.konsist.supports.UtilsTgBot;
 import ru.konsist.commandsTgBot.serviceCommand.HelpCommand;
 import ru.konsist.commandsTgBot.serviceCommand.NonCommand;
 import ru.konsist.commandsTgBot.serviceCommand.StartCommand;
 
+import java.util.List;
+
 @Component
 @RequiredArgsConstructor
 public final class WorkSupportsTgBot extends TelegramLongPollingCommandBot {
     @Autowired
     private ApplicationContext context;
+    @Autowired
+    private JobService jobService;
     private String BOT_NAME;
     private String BOT_TOKEN;
 
@@ -39,28 +44,57 @@ public final class WorkSupportsTgBot extends TelegramLongPollingCommandBot {
         this.BOT_NAME = SettingsTgBot.getInstance().getTelegramBotName();
         this.BOT_TOKEN = SettingsTgBot.getInstance().getTelegramBotToken();
     }
+
     public void tgBotAddCommand() {
         register(new StartCommand("start", "Старт"));
-        register(new HelpCommand("help","Помощь"));
-        register(new GetAllJobsCommand("jobs","Получить все задачи"));
-        register(new GetSettingsCommand("settings","Получить настройки"));
+        register(new HelpCommand("help", "Помощь"));
+        register(new GetAllJobsCommand("jobs", "Получить все задачи"));
+        register(new GetSettingsCommand("settings", "Получить настройки"));
     }
+
 
     @Override
     public void processNonCommandUpdate(Update update) {
-        Message msg = update.getMessage();
-        Long chatId = msg.getChatId();
-        String userName = UtilsTgBot.getUserName(msg);
+        if (update.hasMessage()) {
+            if (update.getMessage().hasText()) {
+                try {
+                    Message msg = update.getMessage();
+                    Long chatId = msg.getChatId();
+                    String userName = UtilsTgBot.getUserName(msg);
+                    SendMessage answer = new SendMessage();
+                    answer.setChatId(chatId.toString());
+                    String textMessage = NonCommand.nonCommandExecute(chatId, userName, msg.getText());
+                    answer.setText(textMessage);
+                    execute(answer);
+                } catch (TelegramApiException e) {
+                    e.printStackTrace();
+                }
+            }
+        } else if (update.hasCallbackQuery()) {
+            try {
+//                execute(new SendMessage().setText(update.getCallbackQuery().getData()).setChatId(update.getCallbackQuery().getMessage().getChatId()));
+                String[] textMessage = update.getCallbackQuery().getData().split(":");
+                if (textMessage[0].equals("build")){
+                    jobService.buildJob(update.getCallbackQuery().getFrom().getId().toString(), textMessage[1]);
+                }
+//                SendMessage answer = new SendMessage();
+//                answer.setChatId(update.getCallbackQuery().getFrom().getId().toString());
+//                answer.setText(textMessage);
+//                execute(answer);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
-        String answer = NonCommand.nonCommandExecute(chatId, userName, msg.getText());
-        setAnswer(chatId, userName, answer);
+
     }
 
     /**
      * Отправка ответа
-     * @param chatId id чата
+     *
+     * @param chatId   id чата
      * @param userName имя пользователя
-     * @param text текст ответа
+     * @param text     текст ответа
      */
     private void setAnswer(Long chatId, String userName, String text) {
         SendMessage answer = new SendMessage();

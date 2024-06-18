@@ -24,18 +24,55 @@ public class RequestJenkinsController {
 
     @GetMapping("/jobs/{chatId}")
     public List<JobJenkins> getAllJobs(@PathVariable Long chatId) {
-        log.info("GetRequest(\"/jobs/\"" + chatId + ")");
+        log.info("GetRequest(/jobs/" + chatId + ")");
         List<JobJenkins> result = new ArrayList<>();
-        try{
+        try {
             SettingsUser settingsUser = settingsUserService.getSettingsUserByChatId(chatId.toString()).get();
             result = jenkinsService.getJenkinsJobs(
                     jenkinsService.getJenkinsServer(
                             settingsUser.getUri(),
                             settingsUser.getLogin(),
                             settingsUser.getPassword()));
-        } catch (Exception ex){
+        } catch (Exception ex) {
             log.info("ERROR getAllJobs");
             System.out.println(ex);
+        }
+        return result;
+    }
+
+    @GetMapping("/jobs/{chatId}/{jobName}")
+    public JobJenkins getJobByName(@PathVariable Long chatId, @PathVariable String jobName) {
+        log.info("GetRequest(/jobs/" + chatId + "/" + jobName + ")");
+        JobJenkins result = new JobJenkins();
+        try {
+            SettingsUser settingsUser = settingsUserService.getSettingsUserByChatId(chatId.toString()).get();
+            result = jenkinsService.getJenkinsJobByName(
+                    jenkinsService.getJenkinsServer(
+                            settingsUser.getUri(),
+                            settingsUser.getLogin(),
+                            settingsUser.getPassword()), jobName);
+        } catch (Exception ex) {
+            log.info("ERROR getJobByName");
+            System.out.println(ex);
+        }
+        return result;
+    }
+
+    @GetMapping("/jobs/{chatId}/{jobName}/build")
+    public String buildJobByName(@PathVariable Long chatId, @PathVariable String jobName) {
+        log.info("GetRequest(/jobs/" + chatId + "/" + jobName + "/build)");
+        String result = "";
+        try {
+            SettingsUser settingsUser = settingsUserService.getSettingsUserByChatId(chatId.toString()).get();
+            result = jenkinsService.buildJenkinsJobByName(
+                    jenkinsService.getJenkinsServer(
+                            settingsUser.getUri(),
+                            settingsUser.getLogin(),
+                            settingsUser.getPassword()), jobName).toString();
+        } catch (Exception ex) {
+            log.info("ERROR buildJobByName");
+            System.out.println(ex);
+            result = "Error job name";
         }
         return result;
     }
@@ -44,10 +81,10 @@ public class RequestJenkinsController {
     public SettingsUser getSettingsUser(@PathVariable Long chatId) {
         log.info("GetRequest(\"/settings/\"" + chatId + ")");
         SettingsUser result = new SettingsUser();
-        try{
+        try {
             SettingsUser settingsUser = settingsUserService.getSettingsUserByChatId(chatId.toString()).get();
             result = settingsUser;
-        } catch (Exception ex){
+        } catch (Exception ex) {
             log.info("ERROR getSettingsUser");
             System.out.println(ex);
         }
