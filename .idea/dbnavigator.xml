@@ -30,7 +30,12 @@
     <connection id="e1748c86-f53b-4e27-b8e8-7a3e3291eefb" />
   </component>
   <component name="DBNavigator.Project.DatasetFilterManager">
-    <filter-actions connection-id="e1748c86-f53b-4e27-b8e8-7a3e3291eefb" dataset="public.request_jenkins_log" active-filter-id="" />
+    <filter-actions connection-id="e1748c86-f53b-4e27-b8e8-7a3e3291eefb" dataset="public.settings_users" active-filter-id="ad3f2d71-4ddc-4421-8db5-6cbab191dd20">
+      <filter id="ad3f2d71-4ddc-4421-8db5-6cbab191dd20" name="Filter 1" temporary="false" custom-name="false" type="basic" join-type="AND" />
+    </filter-actions>
+    <filter-actions connection-id="e1748c86-f53b-4e27-b8e8-7a3e3291eefb" dataset="public.request_jenkins_log" active-filter-id="e48d43e7-0002-458c-b8a1-3c1bd7dedc60">
+      <filter id="e48d43e7-0002-458c-b8a1-3c1bd7dedc60" name="Filter 1" temporary="false" custom-name="false" type="basic" join-type="AND" />
+    </filter-actions>
   </component>
   <component name="DBNavigator.Project.ExecutionManager">
     <retain-sticky-names value="false" />

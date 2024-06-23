@@ -10,11 +10,21 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+
 public class SettingsTgBot {
     private static SettingsTgBot settingsTgBotApp;
-
     private String telegramBotName;
     private String telegramBotToken;
+    private String jenkinsHost;
+    private String jenkinsPort;
+
+    public String getJenkinsHost() {
+        return jenkinsHost;
+    }
+
+    public String getJenkinsPort() {
+        return jenkinsPort;
+    }
 
     public String getTelegramBotName() {
         return telegramBotName;
@@ -25,7 +35,7 @@ public class SettingsTgBot {
     }
 
 
-    public static SettingsTgBot getInstance(){
+    public static SettingsTgBot getInstance() {
         if (settingsTgBotApp == null) {
             settingsTgBotApp = new SettingsTgBot();
         }
@@ -42,6 +52,12 @@ public class SettingsTgBot {
                         break;
                     case ("telegramBotToken"):
                         telegramBotToken = entry.getValue();
+                        break;
+                    case ("jenkinsHost"):
+                        jenkinsHost = entry.getValue();
+                        break;
+                    case ("jenkinsPort"):
+                        jenkinsPort = entry.getValue();
                         break;
                     default:
                         break;
@@ -71,6 +87,7 @@ public class SettingsTgBot {
             System.out.println(ex);
         }
     }
+
     private static String readTextFile(String fileName) {
         String result = "";
         try {

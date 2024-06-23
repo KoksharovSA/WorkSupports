@@ -7,6 +7,7 @@ import org.telegram.telegrambots.meta.api.objects.Chat;
 import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.bots.AbsSender;
 import ru.konsist.models.SettingsUser;
+import ru.konsist.supports.SettingsTgBot;
 import ru.konsist.supports.UtilsTgBot;
 
 import java.io.BufferedReader;
@@ -23,17 +24,36 @@ public class GetSettingsCommand extends WorkCommand {
 
     @Override
     public void execute(AbsSender absSender, User user, Chat chat, String[] strings) {
+        log.info("Settings answer: " + user.getUserName() + "(" + chat.getId() + ")");
         String userName = UtilsTgBot.getUserName(user);
-        String answer = "";
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            SettingsUser settingsUser = objectMapper.readValue(httpRequestSettings("http://localhost:6666/settings/" + chat.getId()), SettingsUser.class);
-            answer = settingsUser.toString().strip();
-            log.info(answer);
-            sendAnswer(absSender, chat.getId(), this.getCommandIdentifier(), userName, answer);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
+        String textAnswer = "";
+        if (strings.length != 0) {
+            for (String item : strings) {
+                log.info("Settings argument:" + item + "(" + chat.getId() + ")");
+                switch (item) {
+                    case "adduser":
+                        String paramsSettings = strings[1];
+                        textAnswer = httpRequestSettings("http://"
+                                + SettingsTgBot.getInstance().getJenkinsHost() + ":"
+                                + SettingsTgBot.getInstance().getJenkinsPort() + "/settings/" + chat.getId() + "/adduser/" + paramsSettings);
+                        return;
+                    default:
+                        break;
+                }
+            }
+        } else {
+            try {
+                ObjectMapper objectMapper = new ObjectMapper();
+                SettingsUser settingsUser = objectMapper.readValue(httpRequestSettings("http://"
+                        + SettingsTgBot.getInstance().getJenkinsHost() + ":"
+                        + SettingsTgBot.getInstance().getJenkinsPort() + "/settings/" + chat.getId()), SettingsUser.class);
+                textAnswer = settingsUser.toString().strip();
+            } catch (JsonProcessingException e) {
+                textAnswer = "❌Get settings ERROR";
+                throw new RuntimeException(e);
+            }
         }
+        sendAnswerWithoutMarkdown(absSender, chat.getId(), this.getCommandIdentifier(), userName, textAnswer);
     }
 
     private String httpRequestSettings(String urlString){

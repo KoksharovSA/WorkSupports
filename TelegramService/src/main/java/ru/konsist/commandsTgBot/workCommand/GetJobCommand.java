@@ -9,6 +9,7 @@ import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.bots.AbsSender;
 import ru.konsist.models.JobJenkins;
 import ru.konsist.services.JobService;
+import ru.konsist.supports.SettingsTgBot;
 import ru.konsist.supports.UtilsTgBot;
 
 import java.io.BufferedReader;
@@ -31,7 +32,9 @@ public class GetJobCommand extends WorkCommand {
         String answer = "";
         try {
             ObjectMapper objectMapper = new ObjectMapper();
-            JobJenkins[] jobsJenkins = objectMapper.readValue(jobService.httpRequestJobs("http://localhost:6666/jobs/" + chat.getId()), JobJenkins[].class);
+            JobJenkins[] jobsJenkins = objectMapper.readValue(jobService.httpRequestJobs("http://"
+                    + SettingsTgBot.getInstance().getJenkinsHost() + ":"
+                    + SettingsTgBot.getInstance().getJenkinsPort() + "/jobs/" + chat.getId()), JobJenkins[].class);
             for (JobJenkins item: jobsJenkins) {
                 answer = item.toString();
                 log.info(answer);

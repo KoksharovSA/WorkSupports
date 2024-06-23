@@ -5,4 +5,4 @@ server:
   port: 5555
 spring:
   application:
-    name=JenkinsService
+    name=TelegramBotService

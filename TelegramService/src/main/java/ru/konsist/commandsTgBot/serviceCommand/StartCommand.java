@@ -13,7 +13,7 @@ public class StartCommand extends ServiceCommand {
     @Override
     public void execute(AbsSender absSender, User user, Chat chat, String[] strings) {
         String userName = UtilsTgBot.getUserName(user);
-        sendAnswer(absSender, chat.getId(), this.getCommandIdentifier(), userName,
+        sendAnswerWithMarkdown(absSender, chat.getId(), this.getCommandIdentifier(), userName,
                 "Давайте начнём! Если Вам нужна помощь, нажмите /help");
     }
 }

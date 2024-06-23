@@ -9,6 +9,9 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Date;
 
+/**
+ * Класс задачи сервиса Jenkins
+ */
 @Component
 @Data
 @RequiredArgsConstructor
@@ -20,6 +23,11 @@ public class JobJenkins {
     private String resultLastBuild;
     private String lastBuildTextConsole;
 
+    /**
+     * Метод преобразования данных класса в формат JSON
+     *
+     * @return Задачу сервиса Jenkins в формате JSON
+     */
     public String toJSON() {
         return "{" +
                 "'name'='" + name + '\'' +
@@ -31,6 +39,12 @@ public class JobJenkins {
                 '}';
     }
 
+    /**
+     * Метод получения деталей задачи сервиса Jenkins
+     *
+     * @param job Задача сервиса Jenkins полученая от JenkinsApi
+     * @return Задачу сервиса Jenkins
+     */
     public JobJenkins getJobDetails(Job job) {
         try {
             this.name = job.details().getName();

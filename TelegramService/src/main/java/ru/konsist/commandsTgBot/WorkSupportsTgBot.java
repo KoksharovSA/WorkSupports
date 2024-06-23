@@ -74,13 +74,13 @@ public final class WorkSupportsTgBot extends TelegramLongPollingCommandBot {
             try {
 //                execute(new SendMessage().setText(update.getCallbackQuery().getData()).setChatId(update.getCallbackQuery().getMessage().getChatId()));
                 String[] textMessage = update.getCallbackQuery().getData().split(":");
-                if (textMessage[0].equals("build")){
-                    jobService.buildJob(update.getCallbackQuery().getFrom().getId().toString(), textMessage[1]);
+                String result = "";
+                switch (textMessage[0]){
+                    case "build":
+                        result = jobService.buildJob(update.getCallbackQuery().getFrom().getId().toString(), textMessage[1]);
+                        break;
                 }
-//                SendMessage answer = new SendMessage();
-//                answer.setChatId(update.getCallbackQuery().getFrom().getId().toString());
-//                answer.setText(textMessage);
-//                execute(answer);
+                setAnswer(update.getCallbackQuery().getFrom().getId(), update.getCallbackQuery().getFrom().getUserName().toString(), result);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -98,6 +98,7 @@ public final class WorkSupportsTgBot extends TelegramLongPollingCommandBot {
      */
     private void setAnswer(Long chatId, String userName, String text) {
         SendMessage answer = new SendMessage();
+        answer.enableMarkdown(true);
         answer.setText(text);
         answer.setChatId(chatId.toString());
         try {

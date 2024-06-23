@@ -7,8 +7,11 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 
+/**
+ * Класс настроек пользователя для доступа к сервису Jenkins через JenkinsApi
+ */
 @Entity
-@Table(name="settings_users")
+@Table(name = "settings_users")
 @Data
 public class SettingsUser {
 

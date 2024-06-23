@@ -7,8 +7,11 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 
+/**
+ * Класс лога запросов к JenkinsService
+ */
 @Entity
-@Table(name="request_jenkins_log")
+@Table(name = "request_jenkins_log")
 @Data
 public class RequestJenkinsLog {
 
@@ -16,10 +19,10 @@ public class RequestJenkinsLog {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
 
-    @Column(nullable = false, length = 2000)
+    @Column(nullable = true, length = 2000)
     private String userName;
 
-    @Column(nullable = false, length = 2000)
+    @Column(nullable = true, length = 2000)
     private String chatId;
 
     @Column(length = 2000)
@@ -35,4 +38,11 @@ public class RequestJenkinsLog {
     @Column(nullable = false)
     @UpdateTimestamp
     private LocalDateTime dateUpdate;
+
+    public RequestJenkinsLog(String userName, String chatId, String request, String response) {
+        this.userName = userName;
+        this.chatId = chatId;
+        this.request = request;
+        this.response = response;
+    }
 }
