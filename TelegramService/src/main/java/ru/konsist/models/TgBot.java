@@ -1,4 +1,4 @@
-package ru.konsist.commandsTgBot;
+package ru.konsist.models;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +18,12 @@ import ru.konsist.commandsTgBot.serviceCommand.HelpCommand;
 import ru.konsist.commandsTgBot.serviceCommand.NonCommand;
 import ru.konsist.commandsTgBot.serviceCommand.StartCommand;
 
-import java.util.List;
-
+/**
+ * Класс Telegram бота
+ */
 @Component
 @RequiredArgsConstructor
-public final class WorkSupportsTgBot extends TelegramLongPollingCommandBot {
+public final class TgBot extends TelegramLongPollingCommandBot {
     @Autowired
     private ApplicationContext context;
     @Autowired
@@ -40,11 +41,17 @@ public final class WorkSupportsTgBot extends TelegramLongPollingCommandBot {
         return BOT_TOKEN;
     }
 
+    /**
+     * Метод добавления настроек для Telegram бота
+     */
     public void tgBotUpdateSettings() {
         this.BOT_NAME = SettingsTgBot.getInstance().getTelegramBotName();
         this.BOT_TOKEN = SettingsTgBot.getInstance().getTelegramBotToken();
     }
 
+    /**
+     * Метод добавления команд для Telegram бота
+     */
     public void tgBotAddCommand() {
         register(new StartCommand("start", "Старт"));
         register(new HelpCommand("help", "Помощь"));
@@ -53,6 +60,11 @@ public final class WorkSupportsTgBot extends TelegramLongPollingCommandBot {
     }
 
 
+    /**
+     * Метод выполняемый если запрос не является командой
+     *
+     * @param update the update
+     */
     @Override
     public void processNonCommandUpdate(Update update) {
         if (update.hasMessage()) {

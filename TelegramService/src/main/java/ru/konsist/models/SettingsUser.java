@@ -6,6 +6,9 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 
+/**
+ * Класс настроек пользователя подключения к сервису Jenkins
+ */
 @Component
 @Data
 @RequiredArgsConstructor

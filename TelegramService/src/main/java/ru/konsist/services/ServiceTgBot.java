@@ -8,8 +8,11 @@ import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
-import ru.konsist.commandsTgBot.WorkSupportsTgBot;
+import ru.konsist.models.TgBot;
 
+/**
+ * Сервис работы с Telegram ботом
+ */
 @Service
 @Log
 public class ServiceTgBot {
@@ -18,10 +21,13 @@ public class ServiceTgBot {
     @Autowired
     private ConfigurableApplicationContext conContext;
 
+    /**
+     * Метод для запуска Telegram бота
+     */
     public void startTgBot(){
         try {
             TelegramBotsApi botsApi = new TelegramBotsApi(DefaultBotSession.class);
-            WorkSupportsTgBot wsb = context.getBean(WorkSupportsTgBot.class);
+            TgBot wsb = context.getBean(TgBot.class);
             wsb.tgBotUpdateSettings();
             wsb.tgBotAddCommand();
             botsApi.registerBot(wsb);
@@ -31,6 +37,10 @@ public class ServiceTgBot {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Метод для остановки приложения
+     */
     public void telegramServiceApplicationStop(){
         log.info("Telegram service application stopped");
         conContext.close();

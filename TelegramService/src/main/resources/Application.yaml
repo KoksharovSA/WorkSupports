@@ -1,6 +1,3 @@
-app:
-  jenkinsHost: http:/localhost
-  jenkinsPort: 6666
 server:
   port: 5555
 spring:

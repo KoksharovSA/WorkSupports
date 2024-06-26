@@ -9,22 +9,43 @@ import ru.konsist.services.ServiceTgBot;
 
 import java.util.Map;
 
+/**
+ * Класс контроллера Telegram бота
+ */
 @RestController
 @RequiredArgsConstructor
 public class ControllerTgBot {
+    /**
+     * Сервис Telegram бота
+     */
     @Autowired
     private final ServiceTgBot serviceTgBot;
 
+    /**
+     * GET метод REST контроллера запускающий Telegram бота
+     *
+     * @return Строку результата
+     */
     @GetMapping
     @RequestMapping("/service/startTgBot")
-    public String testResponse(){
-        serviceTgBot.startTgBot();
-        return "Telegram bot started!";
+    public String startTgBotService(){
+        try {
+            serviceTgBot.startTgBot();
+            return "Telegram bot started!";
+        } catch (Exception ex){
+            ex.printStackTrace();
+            return "Error started telegram bot!";
+        }
     }
 
+    /**
+     * GET метод REST контроллера для остановки приложения
+     *
+     * @return Строку результата
+     */
     @GetMapping
     @RequestMapping("/service/StopService")
-    public String testStopService(@RequestBody Map request){
+    public String stopTgBotApp(){
         serviceTgBot.telegramServiceApplicationStop();
         return "TelegramServiceApplication stopped";
     }

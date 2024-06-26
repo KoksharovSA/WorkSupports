@@ -11,11 +11,30 @@ import java.util.Map;
 import java.util.Scanner;
 
 
+/**
+ * Класс настроек сервиса которые пользователь будет хранить в отельном файле рядом с jar-файлом
+ */
 public class SettingsTgBot {
     private static SettingsTgBot settingsTgBotApp;
+
+    /**
+     * Имя Telegram бота
+     */
     private String telegramBotName;
+
+    /**
+     * Токен Telegram бота
+     */
     private String telegramBotToken;
+
+    /**
+     * Host JenkinsService
+     */
     private String jenkinsHost;
+
+    /**
+     * Port JenkinsService
+     */
     private String jenkinsPort;
 
     public String getJenkinsHost() {

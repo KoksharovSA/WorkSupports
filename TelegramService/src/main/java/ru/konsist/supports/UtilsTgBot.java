@@ -3,9 +3,13 @@ package ru.konsist.supports;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.User;
 
+/**
+ * Вспомогательный класс
+ */
 public class UtilsTgBot {
     /**
      * Формирование имени пользователя
+     *
      * @param msg сообщение
      */
     public static String getUserName(Message msg) {
@@ -14,6 +18,7 @@ public class UtilsTgBot {
 
     /**
      * Формирование имени пользователя. Если заполнен никнейм, используем его. Если нет - используем фамилию и имя
+     *
      * @param user пользователь
      */
     public static String getUserName(User user) {

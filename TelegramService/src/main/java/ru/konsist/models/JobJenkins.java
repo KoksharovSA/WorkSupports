@@ -4,6 +4,9 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+/**
+ * Класс задачи Jenkins сервиса для принятия задач посредством HTTP запросов
+ */
 @Component
 @Data
 @RequiredArgsConstructor

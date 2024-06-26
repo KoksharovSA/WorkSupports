@@ -12,12 +12,6 @@ import ru.konsist.services.JobService;
 import ru.konsist.supports.SettingsTgBot;
 import ru.konsist.supports.UtilsTgBot;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
 @Log
 public class GetJobCommand extends WorkCommand {
     @Autowired
@@ -32,7 +26,7 @@ public class GetJobCommand extends WorkCommand {
         String answer = "";
         try {
             ObjectMapper objectMapper = new ObjectMapper();
-            JobJenkins[] jobsJenkins = objectMapper.readValue(jobService.httpRequestJobs("http://"
+            JobJenkins[] jobsJenkins = objectMapper.readValue(jobService.httpRequest("http://"
                     + SettingsTgBot.getInstance().getJenkinsHost() + ":"
                     + SettingsTgBot.getInstance().getJenkinsPort() + "/jobs/" + chat.getId()), JobJenkins[].class);
             for (JobJenkins item: jobsJenkins) {
