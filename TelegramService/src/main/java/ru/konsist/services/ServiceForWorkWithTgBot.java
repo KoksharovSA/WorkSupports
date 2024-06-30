@@ -15,7 +15,7 @@ import ru.konsist.models.TgBot;
  */
 @Service
 @Log
-public class ServiceTgBot {
+public class ServiceForWorkWithTgBot {
     @Autowired
     private ApplicationContext context;
     @Autowired

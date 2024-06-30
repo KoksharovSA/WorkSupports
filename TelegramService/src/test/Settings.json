@@ -1,0 +1,6 @@
+{
+  "telegramBotName": "WorkSupports",
+  "telegramBotToken": "7491932937:AAEKdonZPEvS6d6TV20F7xrcJgLKbwVbmMM",
+  "jenkinsHost": "localhost",
+  "jenkinsPort": "6666"
+}

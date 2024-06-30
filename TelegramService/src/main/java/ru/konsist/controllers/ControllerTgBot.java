@@ -4,10 +4,7 @@ package ru.konsist.controllers;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ru.konsist.TelegramServiceApplication;
-import ru.konsist.services.ServiceTgBot;
-
-import java.util.Map;
+import ru.konsist.services.ServiceForWorkWithTgBot;
 
 /**
  * Класс контроллера Telegram бота
@@ -19,7 +16,7 @@ public class ControllerTgBot {
      * Сервис Telegram бота
      */
     @Autowired
-    private final ServiceTgBot serviceTgBot;
+    private final ServiceForWorkWithTgBot serviceForWorkWithTgBot;
 
     /**
      * GET метод REST контроллера запускающий Telegram бота
@@ -30,7 +27,7 @@ public class ControllerTgBot {
     @RequestMapping("/service/startTgBot")
     public String startTgBotService(){
         try {
-            serviceTgBot.startTgBot();
+            serviceForWorkWithTgBot.startTgBot();
             return "Telegram bot started!";
         } catch (Exception ex){
             ex.printStackTrace();
@@ -46,7 +43,7 @@ public class ControllerTgBot {
     @GetMapping
     @RequestMapping("/service/StopService")
     public String stopTgBotApp(){
-        serviceTgBot.telegramServiceApplicationStop();
+        serviceForWorkWithTgBot.telegramServiceApplicationStop();
         return "TelegramServiceApplication stopped";
     }
 

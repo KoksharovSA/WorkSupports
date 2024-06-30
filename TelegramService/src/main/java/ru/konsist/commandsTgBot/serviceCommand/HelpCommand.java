@@ -30,6 +30,7 @@ public class HelpCommand extends ServiceCommand {
         String defaultTextAnswer = "Я бот, который поможет Вам выполнять рабочие задачи DevOps инженера.\n\n" +
                 "❗*Список команд*\n" +
                 "/jobs - просмотреть текущие задачи\n" +
+                "/job имя задачи - просмотреть задачу по имени\n" +
                 "/settings - просмотреть текущие настройки\n" +
                 "/help - помощь\n\n";
         String textAnswer = "";

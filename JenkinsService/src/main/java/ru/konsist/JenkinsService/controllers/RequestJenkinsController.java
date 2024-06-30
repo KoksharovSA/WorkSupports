@@ -60,9 +60,9 @@ public class RequestJenkinsController {
      * @param jobName Имя задачи
      * @return Задачу сервиса Jenkins по имени
      */
-    @GetMapping("/jobs/{chatId}/{jobName}")
+    @GetMapping("/job/{chatId}/{jobName}")
     public JobJenkins getJobByName(@PathVariable Long chatId, @PathVariable String jobName) {
-        log.info("GetRequest(/jobs/" + chatId + "/" + jobName + ")");
+        log.info("GetRequest(/job/" + chatId + "/" + jobName + ")");
         JobJenkins result = new JobJenkins();
         try {
             SettingsUser settingsUser = settingsUserService.getSettingsUserByChatId(chatId.toString()).get();

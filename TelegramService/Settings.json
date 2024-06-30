@@ -1,0 +1,6 @@
+{
+  "telegramBotName": "telegramBotName",
+  "telegramBotToken": "telegramBotToken",
+  "jenkinsHost": "jenkinsHost",
+  "jenkinsPort": "jenkinsPort"
+}

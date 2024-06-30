@@ -2,7 +2,6 @@ package ru.konsist.models;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.extensions.bots.commandbot.TelegramLongPollingCommandBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -10,8 +9,9 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import ru.konsist.commandsTgBot.workCommand.GetAllJobsCommand;
+import ru.konsist.commandsTgBot.workCommand.GetJobCommand;
 import ru.konsist.commandsTgBot.workCommand.GetSettingsCommand;
-import ru.konsist.services.JobService;
+import ru.konsist.services.ServiceForWorkWithJenkinsService;
 import ru.konsist.supports.SettingsTgBot;
 import ru.konsist.supports.UtilsTgBot;
 import ru.konsist.commandsTgBot.serviceCommand.HelpCommand;
@@ -25,9 +25,7 @@ import ru.konsist.commandsTgBot.serviceCommand.StartCommand;
 @RequiredArgsConstructor
 public final class TgBot extends TelegramLongPollingCommandBot {
     @Autowired
-    private ApplicationContext context;
-    @Autowired
-    private JobService jobService;
+    private ServiceForWorkWithJenkinsService serviceForWorkWithJenkinsService;
     private String BOT_NAME;
     private String BOT_TOKEN;
 
@@ -56,6 +54,7 @@ public final class TgBot extends TelegramLongPollingCommandBot {
         register(new StartCommand("start", "Старт"));
         register(new HelpCommand("help", "Помощь"));
         register(new GetAllJobsCommand("jobs", "Получить все задачи"));
+        register(new GetJobCommand("job", "Получить задачу по имени"));
         register(new GetSettingsCommand("settings", "Получить настройки"));
     }
 
@@ -84,12 +83,11 @@ public final class TgBot extends TelegramLongPollingCommandBot {
             }
         } else if (update.hasCallbackQuery()) {
             try {
-//                execute(new SendMessage().setText(update.getCallbackQuery().getData()).setChatId(update.getCallbackQuery().getMessage().getChatId()));
                 String[] textMessage = update.getCallbackQuery().getData().split(":");
                 String result = "";
-                switch (textMessage[0]){
+                switch (textMessage[0]) {
                     case "build":
-                        result = jobService.buildJob(update.getCallbackQuery().getFrom().getId().toString(), textMessage[1]);
+                        result = serviceForWorkWithJenkinsService.buildJob(update.getCallbackQuery().getFrom().getId().toString(), textMessage[1]);
                         break;
                 }
                 setAnswer(update.getCallbackQuery().getFrom().getId(), update.getCallbackQuery().getFrom().getUserName().toString(), result);
@@ -97,8 +95,6 @@ public final class TgBot extends TelegramLongPollingCommandBot {
                 e.printStackTrace();
             }
         }
-
-
     }
 
     /**
